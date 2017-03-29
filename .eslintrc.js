@@ -17,6 +17,10 @@ module.exports = {
     // allow async-await
     'generator-star-spacing': 0,
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    //配置分号
+    'semi': ['error', 'always'],
+    //缩进 利用webpack自带的
+    'indent': 0
   }
 }
