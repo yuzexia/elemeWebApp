@@ -14,6 +14,44 @@ var port = process.env.PORT || config.dev.port
 var proxyTable = config.dev.proxyTable
 
 var app = express()
+
+//定义数据的读取
+var appData = require('../data.json');
+//商家信息
+var seller = appData.seller;
+//商品信息
+var goods = appData.goods;
+//评论信息
+var ratings = appData.ratings;
+
+//编写路由
+var apiRouters = express.Router();
+
+apiRouters.get('/seller', function (req, res) {
+  res.json({
+    errno: 0,
+    data: seller
+  });
+});
+
+apiRouters.get('/goods', function (req, res) {
+  res.json({
+    errno: 0,
+    data: goods
+  });
+});
+
+apiRouters.get('/ratings', function (req, res) {
+  res.json({
+    errno: 0,
+    data: ratings
+  });
+});
+
+//express使用接口
+app.use('/api', apiRouters);
+
+
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
@@ -28,7 +66,7 @@ var hotMiddleware = require('webpack-hot-middleware')(compiler)
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
   compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
-    hotMiddleware.publish({ action: 'reload' })
+    hotMiddleware.publish({action: 'reload'})
     cb()
   })
 })
@@ -37,7 +75,7 @@ compiler.plugin('compilation', function (compilation) {
 Object.keys(proxyTable).forEach(function (context) {
   var options = proxyTable[context]
   if (typeof options === 'string') {
-    options = { target: options }
+    options = {target: options}
   }
   app.use(proxyMiddleware(context, options))
 })
