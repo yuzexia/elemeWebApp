@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App';
-// 引入goods组件
+// 引入goods,ratings,seller组件
 import goods from './components/goods/goods';
+import ratings from './components/ratings/ratings';
+import seller from './components/seller/seller';
 
 Vue.use(VueRouter);
 
@@ -15,8 +17,14 @@ router.map({
   '/goods': {
     // 首先得创建goods组件
     component: goods
+  },
+  'ratings': {
+    component: ratings
+  },
+  'seller': {
+    component: seller
   }
 });
 
-// 启动
+// 启动 '#app'为挂载点
 router.start(app, '#app');
