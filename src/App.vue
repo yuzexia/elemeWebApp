@@ -18,10 +18,27 @@
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
   import header from 'components/header/header.vue';
 
+  let ERR_OK = 0;
   export default {
+    /* 定义seller对象，data为一个function为了防止被改变*/
+    data() {
+      return {
+        seller: {}
+      };
+    },
+    // 创建created钩子函数
+    created() {
+      this.$http.get('/api/seller').then((res) => {
+        res = res.body;
+        if (res.errno === ERR_OK) {
+          this.seller = res.data;
+          console.log(this.seller);
+        }
+      });
+    },
     components: {
       'v-header': header
     }

@@ -21,6 +21,8 @@ module.exports = {
     //配置分号
     'semi': ['error', 'always'],
     //缩进 利用webpack自带的
-    'indent': 0
+    'indent': 0,
+    // 配置function之前不需要空格
+    'space-before-function-paren':0
   }
 }

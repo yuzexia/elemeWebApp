@@ -1,5 +1,8 @@
 import Vue from 'vue';
+// vue-router
 import VueRouter from 'vue-router';
+// vue-resource
+import VueResource from 'vue-resource';
 import App from './App';
 // 引入goods,ratings,seller组件
 // 因在webpack.base.conf.js中resolve有设置components路径，路径可以写成下面这样
@@ -10,7 +13,9 @@ import seller from 'components/seller/seller';
 // 引入全局styl样式
 import 'common/stylus/index.styl';
 
+// 注册
 Vue.use(VueRouter);
+Vue.use(VueResource);
 
 let app = Vue.extend(App);
 
