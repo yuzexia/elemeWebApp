@@ -7,6 +7,9 @@ import goods from 'components/goods/goods';
 import ratings from 'components/ratings/ratings';
 import seller from 'components/seller/seller';
 
+// 引入全局styl样式
+import 'common/stylus/index.styl';
+
 Vue.use(VueRouter);
 
 let app = Vue.extend(App);
