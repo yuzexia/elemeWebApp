@@ -2,15 +2,19 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App';
 // 引入goods,ratings,seller组件
-import goods from './components/goods/goods';
-import ratings from './components/ratings/ratings';
-import seller from './components/seller/seller';
+// 因在webpack.base.conf.js中resolve有设置components路径，路径可以写成下面这样
+import goods from 'components/goods/goods';
+import ratings from 'components/ratings/ratings';
+import seller from 'components/seller/seller';
 
 Vue.use(VueRouter);
 
 let app = Vue.extend(App);
 
-let router = new VueRouter();
+let router = new VueRouter({
+  // 手动修改路由被激活的样式名称,默认为“v-link-active”
+  linkActiveClass: 'active'
+});
 
 // 用router的map()方法配置路由
 router.map({
@@ -28,3 +32,5 @@ router.map({
 
 // 启动 '#app'为挂载点
 router.start(app, '#app');
+
+router.go('/goods');

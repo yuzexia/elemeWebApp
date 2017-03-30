@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import header from './components/header/header.vue';
+  import header from 'components/header/header.vue';
 
   export default {
     components: {
@@ -37,5 +37,11 @@
     .tab-item
       flex: 1
       text-align: center
+      & > a
+        display: block
+        font-size: 14px
+        color: rgb(77, 85, 93)
+      & > .active
+        color: rgb(240, 20, 20)
 
 </style>
