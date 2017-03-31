@@ -1,6 +1,7 @@
 <template>
   <div>
-    <v-header></v-header>
+    <!-- 绑定一个seller属性 v-bind:seller="seller" -->
+    <v-header :seller="seller"></v-header>
 
     <div class="tab border-1px">
       <div class="tab-item">

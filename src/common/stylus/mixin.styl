@@ -9,3 +9,10 @@ border-1px($color)
     width: 100%
     border: 1px solid rgba(7, 17, 27, .1)
 
+/*默认情况下使用2X图片，当pdr等于3的使用3X图片*/
+bg-image($url)
+  background-image: url($url + "@2x.png")
+  @media (-webkit-min-device-pixed-ratio: 3), (min-device-pixel-ratio: 3)
+    background-image: url($url + "@3x.png")
+
+
