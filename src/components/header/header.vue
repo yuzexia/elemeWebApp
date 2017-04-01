@@ -35,22 +35,53 @@
     </div>
     <!--浮层-->
     <!--css sticky footer布局-->
-    <div v-show="detailShow" class="detail">
+    <!--添加transition="fade" 增加动画-->
+    <div v-show="detailShow" class="detail" transition="fade">
       <!--真正承载内容的容器-->
       <div class="detail-wrapper clearfix">
         <div class="detail-main">
           <div class="name">{{seller.name}}</div>
+          <!--star 组件接收两个参数size与score-->
+          <div class="star-warpper">
+            <star :size="48" :score="seller.score"></star>
+          </div>
+          <div class="title">
+            <div class="line"></div>
+            <div class="text">优惠信息</div>
+            <div class="line"></div>
+          </div>
+          <!--优惠信息列表-->
+          <ul class="supports">
+            <li class="support-item" v-for="item in seller.supports">
+              <span class="icon" :class="classMap[seller.supports[$index].type]"></span>
+              <span class="text">{{seller.supports[$index].description}}</span>
+            </li>
+          </ul>
+          <!--商家公告-->
+          <div class="title">
+            <div class="line"></div>
+            <div class="text">商家公告</div>
+            <div class="line"></div>
+          </div>
+          <!--公告详情-->
+          <div class="bulletin">
+            <p class="content">{{seller.bulletin}}</p>
+          </div>
         </div>
       </div>
       <!--钉在底部的关闭按钮-->
-      <div class="detail-close">
+      <div class="detail-close" @click="hideDetail">
         <i class="icon-close"></i>
       </div>
     </div>
+
+  </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import star from 'components/star/star.vue';
+
   export default {
     props: {
       seller: {
@@ -65,10 +96,17 @@
     methods: {
       showDetail() {
         this.detailShow = true;
+      },
+      hideDetail() {
+        this.detailShow = false;
       }
     },
     created() {
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
+    },
+    /* 注册star组件*/
+    components: {
+      star
     }
   };
 </script>
@@ -205,7 +243,16 @@
       width: 100%
       height: 100%
       overflow: auto
-      background: rgba(7, 17, 27, .8)
+      transition: all .5s
+      backdrop-filter: blur(10px)
+      -webkit-backdrop-filter: blur(10px)
+      // background: rgba(7, 17, 27, .8)
+      &.fade-transition
+        opacity: 1
+        background: rgba(7, 17, 27, .8)
+      &.fade-enter, &.fade-leave
+        opacity: 0
+        background: rgba(7, 17, 27, 0)
       .detail-wrapper
         width: 100%
         min-height: 100%
@@ -217,6 +264,63 @@
             font-weight: 700
             line-height: 16px
             text-align: center
+          .star-warpper
+            margin-top: 18px
+            padding: 2px 0
+            text-align: center
+          .title
+            display: flex
+            width: 80%
+            margin: 28px auto 24px auto
+            .line
+              flex: 1
+              position: relative
+              top: -6px
+              border-bottom: 1px solid rgba(255, 255, 255, .2)
+            .text
+              padding: 0 12px
+              font-size: 14px
+              font-weight: 700
+          .supports
+            margin: 0 auto
+            padding: 0 12px
+            width: 80%
+            box-sizing: border-box
+            .support-item
+              margin-bottom: 12px
+              height: 16px
+              &:last-child
+                margin-bottom: 0
+              .icon
+                display: inline-block
+                vertical-align: top
+                margin-right: 6px
+                width: 16px
+                height: 16px
+                background-repeat: no-repeat
+                background-size: 16px 16px
+                &.decrease
+                  bg-image('decrease_2')
+                &.discount
+                  bg-image('discount_2')
+                &.special
+                  bg-image('special_2')
+                &.invoice
+                  bg-image('invoice_2')
+                &.guarantee
+                  bg-image('guarantee_2')
+              .text
+                font-size: 12px
+                line-height: 16px
+
+          .bulletin
+            width: 80%
+            margin: 0 auto
+            padding: 0 12px
+            box-sizing: border-box
+            .content
+              font-size: 12px
+              line-height: 24px
       .detail-close
         position: relative
         width: 32px
