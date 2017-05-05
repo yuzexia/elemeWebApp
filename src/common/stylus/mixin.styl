@@ -8,7 +8,9 @@ border-1px($color)
     bottom: 0
     width: 100%
     border-bottom: 1px solid rgba(7, 17, 27, .1)
-
+border-none()
+  &:after
+    display:none;
 /*默认情况下使用2X图片，当pdr等于3的使用3X图片*/
 bg-image($url)
   background-image: url($url + "@2x.png")
