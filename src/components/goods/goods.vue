@@ -39,7 +39,7 @@
         </li>
       </ul>
     </div>
-    <shopcart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice"
+    <shopcart v-ref:shopcart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice"
               :min-price="seller.minPrice"></shopcart>
   </div>
 </template>
@@ -117,6 +117,9 @@
         let el = foodList[index];
         this.foodsScroll.scrollToElement(el, 300);
       },
+      _drop(target) {
+        this.$refs.shopcart.drop(target);
+      },
       _initScroll() {
         this.menuScroll = new BScroll(this.$els.menuWrapper, {
           // better-scroll阻止默认的
@@ -151,6 +154,12 @@
     components: {
       'shopcart': shopcart,
       'cartcontrol': cartcontrol
+    },
+    events: {
+      // 父组件接收了子组件cartcontrol传递过来的一个事件，
+      'cart.add'(target) {
+        this._drop(target);
+      }
     }
   };
 </script>
